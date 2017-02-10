@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html ng-app="starter">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <title></title>
+
+    <link rel="manifest" href="manifest.json">
+
+    <!-- un-comment this code to enable service worker
+    <script>
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('service-worker.js')
+          .then(() => console.log('service worker installed'))
+          .catch(err => console.log('Error', err));
+      }
+    </script>-->
+
+    <link href="lib/ionic/css/ionic.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+
+    <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
+    <link href="css/ionic.app.css" rel="stylesheet">
+    -->
+
+    <!-- ionic/angularjs js -->
+    <script src="lib/ionic/js/ionic.bundle.js"></script>
+
+    <!-- cordova script (this will be a 404 during development) -->
+    <script src="cordova.js"></script>
+
+    <!-- your app's js -->
+    <script src="js/TarefaModel.js"></script>
+    <script src="js/app.js"></script>
+    
+  </head>
+  <body ng-controller="indexController">
+
+    <ion-pane>
+      <ion-header-bar class="bar-dark">
+        <h1 class="title">Lista de Tarefas</h1>
+      </ion-header-bar>
+
+      <ion-footer-bar class="bar-dark">
+
+        <div class="row">
+
+          <div class="col col-80">
+            <strong>Exibir finalizadas</strong>
+          </div>
+
+          <div class="col col-20">
+            <label class="toggle">
+              <input type="checkbox" ng-model="verFinalizadas">
+              <div class="track">
+                <div class="handle">
+                </div>
+              </div>
+            </label>
+          </div>
+
+        </div>
+
+      </ion-footer-bar>
+
+      <ion-content>
+        <div class="row">
+          <div class="col col-50">
+            <button class="button button-block button-positive" ng-click="adicionarItem()">Adicionar</button>
+          </div>
+          <div class="col col-50">
+            <button class="button button-block button-assertive" ng-click="botaoRemoverClick()">Remover Item</button>
+          </div>
+        </div>
+        <ion-list show-delete="verBotaoRemover">
+          <ion-item ng-repeat="item in lista track by $index" ng-hide="verItens(item)">
+            <div class="row">
+              <div class="col col-90">
+                {{item.nome}}
+                <ion-delete-button class="ion-minus-circled" ng-click="removerItem(item)"></ion-delete-button>
+                <ion-option-button class="button-positive" ng-click="alterarItem(item)">Editar</ion-option-button>
+              </div>
+              <div class="col col-10">
+                <button type="button" class="button button-small button-dark button-outline" ng-click="statusItem(item)">
+                  <i ng-class="{'icon ion-checkmark' : item.status}"></i>
+                </button>
+              </div>
+            </div>
+          </ion-item>
+        </ion-list>
+      </ion-content>
+    </ion-pane>
+  </body>
+</html>
